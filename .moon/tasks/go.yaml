@@ -1,0 +1,20 @@
+inheritedBy:
+  languages:
+    - go
+
+tasks:
+  lint:
+    type: run
+    description: Goのソースコードを静的解析する
+    command: golangci-lint run ./...
+    deps:
+      - proto:gen
+    options:
+      runInCI: always
+
+  audit:
+    type: run
+    description: Goの依存関係に既知の脆弱性がないか検査する
+    command: govulncheck ./...
+    options:
+      runInCI: always

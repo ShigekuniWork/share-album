@@ -33,20 +33,6 @@ tasks:
       cache: false
       runInCI: false
 
-  golang-lint:
-    type: run
-    description: Goのソースコードを静的解析する
-    command: golangci-lint run ./...
-    options:
-      runInCI: always
-
-  golang-audit:
-    type: run
-    description: Goの依存関係に既知の脆弱性がないか検査する
-    command: govulncheck ./...
-    options:
-      runInCI: always
-
   commit-message:
     type: test
     description: コミットメッセージが形式に従っているか検証する
@@ -59,8 +45,8 @@ tasks:
     description: pre-commit時のタスク
     deps:
       - betterleaks-staged
-      - golang-lint
-      - golang-audit
+      - server:lint
+      - server:audit
       - github:actionlint
       - github:zizmor 
     options:
