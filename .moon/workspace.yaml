@@ -1,0 +1,12 @@
+projects:
+  root: '.'
+
+vcs:
+  defaultBranch: 'main'
+  hookFormat: 'bash'
+  hooks:
+    pre-commit:
+      - 'moon run root:pre-commit --affected --status=staged'
+    commit-msg:
+      - 'moon run root:commit-message'
+  sync: true
