@@ -1,0 +1,12 @@
+language: 'go'
+
+tasks:
+  run:
+    type: run
+    description: Serverの起動
+    command: go run main.go
+
+  build:
+    type: build
+    description: Serverのビルド
+    command: go build ./...

@@ -1,6 +1,7 @@
 projects:
   root: '.'
   github: '.github'
+  server: 'cmd/server'
 
 vcs:
   defaultBranch: 'main'
