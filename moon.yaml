@@ -1,6 +1,22 @@
 language: 'unknown'
 
 tasks:
+  docker-up:
+    type: run
+    description: Docker composeの起動
+    command: docker compose up
+    options:
+      cache: false
+      runInCI: false
+
+  docker-down:
+    type: run
+    description: Docker composeの停止
+    command: docker compose down
+    options:
+      cache: false
+      runInCI: false
+  
   betterleaks:
     type: test
     description: リポジトリ全体の秘密情報の漏えいを検査する
