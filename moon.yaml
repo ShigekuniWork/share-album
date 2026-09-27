@@ -45,5 +45,7 @@ tasks:
       - betterleaks-staged
       - golang-lint
       - golang-audit
+      - github:actionlint
+      - github:zizmor 
     options:
       runInCI: false
