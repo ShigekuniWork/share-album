@@ -214,3 +214,6 @@ dist
 
 # moonrepo
 .moon/cache/
+
+# build
+cmd/server/server
