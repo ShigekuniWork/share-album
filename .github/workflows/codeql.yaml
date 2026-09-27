@@ -32,7 +32,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Nix
-        uses: DeterminateSystems/determinate-nix-action@e9bfc9148566ca239aef4f5cb968674de15c3c20 # v3.5.2
+        uses: DeterminateSystems/determinate-nix-action@8d87e8d5e5b8a8309d4281094560f127d9a265f1 # v3.22.5
 
       - uses: github/codeql-action/init@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
         with:
