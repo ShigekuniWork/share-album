@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package share_album.media.v1;
+
+option go_package = "github.com/ShigekuniWork/share-album/api/proto/gen/share_album/media/v1";
+
+service MediaService {
+  rpc UploadMedia(UploadMediaRequest) returns (UploadMediaResponse);
+}
+
+message UploadMediaRequest {}
+
+message UploadMediaResponse {}

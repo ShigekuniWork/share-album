@@ -1,0 +1,45 @@
+language: 'unknown'
+layer: 'library'
+
+tasks:
+  lint:
+    type: test
+    description: 'Protocol Buffers ファイルを lint し、フォーマットを検査する。'
+    script: |
+      buf lint
+      buf format --diff --exit-code
+    options:
+      runFromWorkspaceRoot: false
+      runInCI: true
+
+  fix:
+    type: run
+    preset: utility
+    description: 'Protocol Buffers ファイルを lint してインプレースでフォーマットする。'
+    script: |
+      buf lint
+      buf format -w
+    options:
+      runFromWorkspaceRoot: false
+      runInCI: false
+
+  breaking:
+    type: test
+    description: 'Protocol Buffers の後方互換性を検査する。'
+    script: |
+      if git cat-file -e origin/main:api/proto/buf.yaml 2>/dev/null; then
+        buf breaking --against '../../.git#branch=main,subdir=api/proto'
+      else
+        echo 'No proto baseline on main; skipping breaking check'
+      fi
+    options:
+      runFromWorkspaceRoot: false
+      runInCI: true
+
+  gen:
+    type: build
+    description: 'Protocol Buffers のソースコードを生成する。'
+    command: 'buf generate'
+    options:
+      runFromWorkspaceRoot: false
+      runInCI: true
