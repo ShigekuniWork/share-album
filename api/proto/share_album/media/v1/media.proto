@@ -2,12 +2,54 @@ syntax = "proto3";
 
 package share_album.media.v1;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/ShigekuniWork/share-album/api/proto/gen/share_album/media/v1";
 
+// 画像と映像を取り扱うサービス
 service MediaService {
+  // 特定のアルバムに対して、画像または映像をアップロードする。
+  //
+  // レスポンスとして返される署名URLに対して、画像または映像をアップロードしてください。
+  // レート制限があるので、並列数を絞ってリクエストをお願いします。
   rpc UploadMedia(UploadMediaRequest) returns (UploadMediaResponse);
 }
 
-message UploadMediaRequest {}
+// Share AlbumでサポートされているMIME Type
+// 画像と映像のみを対象としています。
+enum MimeType {
+  MIME_TYPE_UNSPECIFIED = 0;
 
-message UploadMediaResponse {}
+  MIME_TYPE_JPEG = 1;
+  MIME_TYPE_PNG = 2;
+  MIME_TYPE_GIF = 3;
+  MIME_TYPE_HEIC = 4;
+
+  MIME_TYPE_MP4 = 5;
+  MIME_TYPE_MOV = 6;
+}
+
+message UploadMediaRequest {
+  // 画像または、映像を保存するアルバムのID
+  string album_id = 1;
+
+  // アップロードするファイルのファイル名
+  string file_name = 2;
+
+  MimeType mime_type = 3;
+
+  // アップロード予定のファイルサイズ
+  //
+  // 画像: 最大200MiB
+  // 映像: 最大5GiB
+  int64 file_size = 4;
+
+  // メディアを撮影した時刻
+  // 指定されなかった場合は、アップロード時刻が保存されます。
+  optional google.protobuf.Timestamp date_taken = 5;
+}
+
+message UploadMediaResponse {
+  // アップロード用の署名URL
+  string upload_url = 1;
+}
