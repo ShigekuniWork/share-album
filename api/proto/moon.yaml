@@ -28,7 +28,7 @@ tasks:
     description: 'Protocol Buffers の後方互換性を検査する。'
     script: |
       if git cat-file -e origin/main:api/proto/buf.yaml 2>/dev/null; then
-        buf breaking --against '../../.git#branch=main,subdir=api/proto'
+        buf breaking --against '../../.git#ref=origin/main,subdir=api/proto'
       else
         echo 'No proto baseline on main; skipping breaking check'
       fi
